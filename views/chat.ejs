@@ -1,0 +1,114 @@
+<%- include('./common/header.ejs') %>
+
+<script>
+    // body.onload = addOldChats()
+
+</script>
+
+</div>
+<link rel="stylesheet" href="/chat/style.css">
+
+<main id="main">
+
+
+    <section class="inner-page">
+        <div class="container">
+
+            <div class="page-title">
+                <div class="row gutters">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 my-3 text-center">
+                        <h3 class="title font-weight-600">Appointment Chat</h3>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"> </div>
+                </div>
+            </div>
+            <!-- Page header end -->
+
+            <!-- Content wrapper start -->
+            <div class="content-wrapper">
+                
+
+                <!-- Row start -->
+                <div class="row gutters">
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+                        <div class="card m-0">
+
+                            <div class="row no-gutters h-w" >
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="selected-user flex justify-between" light>
+                                        <span class="m-2 p-1 font-weight-bold h4">Chat with <span class="name"><% if(user.role == 'patient'){ %>Doctor <%} else if(user.role == 'doctor') { %> Patient <% } else if(user.role == null) {%> Doctor as Guest <% }%></span> 
+                                        <!-- <input type="file" name="uploadDoc" id="uploaded"> -->
+                                        <!-- <button type="button" class="btn btn-link btn-header upload-doc-btn" id="upload"><i class="fas fa-file-upload"></i></button> -->
+                                        <button type="button" class="btn btn-link btn-header video-call-btn float-right" id="video-call"> <i class="fas fa-video"> </i></button> 
+                                                    
+                                                </span>
+                                        <style>
+                                            a {
+                                                color: black;
+                                            }
+                                            button.btn-header{
+                                                border: 2px solid gray;
+                                                            /* color: rgb(223, 90, 57); */
+                                                            background-color: rgb(255, 198, 198);
+                                                            padding: 4px 10px;
+                                                            border-radius: 8px;
+                                                            font-size: 15px;
+                                                            font-weight: bold;
+                                            }
+
+                                        </style>
+                                    </div>
+                                    <div class="chat-container overflow-auto" style="height: 70vh;">
+                                        <ul style="list-style: none;" class="chat-box chatContainerScroll column">
+                                            
+                                        </ul>
+                                    </div>
+                                    <div class="input-group mt-3 mb-0 fixed-bottom position-absolute">
+                                        <input type="text" placeholder="Type a message"
+                                            aria-describedby="button-addon2"
+                                            class="form-control rounded-0 border-0 py-4 bg-light chat-input">
+
+                                            <div class="input-group-append">
+                                                <button id="add-chat-button" type="button"
+                                                    class="btn btn-link align-middle chat-btn"> <i
+                                                        class="fa fa-paper-plane"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                window.onload = (event) => {
+                                    addOldChats()
+                                };
+                                var roominfo = '<%= chatInfo.chatid %>';
+                                var userinfo = '<%= chatInfo.patientName %>'
+                                var userid = '<%= user._id %>'
+                                var meeting_id = '<%= chatInfo.meeting_id %>'
+                                var doctorName = '<%= chatInfo.doctorName %>'
+                                var patientName = '<%= chatInfo.patientName %>'
+                                var myRole = '<%= user.role %>'
+                                var patientId = '<%= chatInfo.patientId %>'
+                                console.log(myRole)
+                            </script>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- Row end -->
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/chat/chatroom.js"></script>
+<%- include('./common/footer.ejs') %>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="/images/favicon.png" type="">
+
+  <title> Dr Sanjay Kumar </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <!-- font awesome style -->
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="/css/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="/css/responsive.css" rel="stylesheet" />
+
+</head>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"><b>Welcome, Login</b></h5>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      <div class="card-body">
+      <div class="modal-body">
+        <div class="form-group col-lg-6">
+          <label for="PhoneNumber">Hi, Enter Phone Number</label>
+          <input type="number" class="form-control md-2" style="outline: none; " name="phoneNumber" id="userNum" placeholder="Phone Number">
+        </div>
+        <p id="message"></p>
+        <div class="form-group col-lg-6" id="parentDiv">
+
+        </div>
+      </div>
+    </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" id="resendotp">Resend OTP in (30) seconds</button>
+        <button type="button" class="btn btn-primary" id="login">Send OTP</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<% code = 400 %>
+
+
+
+
+
+
+<% if(x == 'index') { %>
+<body>
+
+  <div class="hero_area">
+
+    <div class="hero_bg_box">
+      <img src="/images/hero-bg.png" alt="">
+    </div>
+<% } else { %>
+
+<body class="sub_page">
+
+    <div class="hero_area">
+ 
+<% } %>
+
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="/">
+            <span>
+              Dr Sanjay Kumar
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about-us"> About</a>
+              </li>
+              <li class="nav-item">
+                <div class="dropdown">
+                  <a class="nav-link dropdown-toggle"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Appointment
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/view-appointments">My Appointments</a>
+                    <a class="dropdown-item" href="/book-appointment">Book New</a>
+                    <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+                  </div>
+                </div>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="/view-appointments">Appointments</a>
+              </li> -->
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="doctors.html">Doctors</a>
+              </li> -->
+              <li class="nav-item">
+                <a class="nav-link" href="/contact-us">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                
+                 <%if(user._id) { %>
+                  <div class="dropdown">
+                    <a class="nav-link dropdown-toggle btn-secondary"  id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Hi, User
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                      <a class="dropdown-item" href="/view-appointments">My Appointments</a>
+                      <!-- <a class="dropdown-item" href="/view-profile">My Profile</a> -->
+
+                      <a class="dropdown-item" href="#" id="logout-btn">Logout</a>
+                      <!-- <a class="dropdown-item" href="#">Something else here</a> -->
+                    </div>
+                  </div>
+                  
+                  <% } else { %>
+                    <button class="btn btn-primary rounded login-button" data-toggle="modal" data-target="#exampleModal" type="button" id="login-btn">Login</button>
+                    <% }%>
+                   
+              </li>
+              <!-- <form class="form-inline">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form> -->
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <style>
+      .login-button{
+        border: none;
+      }
+    </style>
+
+
+<script>
+    let state = 'login';
+    let userNum, otp;
+    const resendOtpBut = document.getElementById('resendotp')
+    resendOtpBut.style.visibility = "hidden"
+    resendOtpBut.disabled = true;
+    document.getElementById('login').addEventListener("click", async function(event) {
+      event.preventDefault()
+      if(state == 'login'){
+        userNum = document.getElementById('userNum').value;
+        console.log(userNum)
+        if(userNum){
+          const response = await getOtp(userNum)
+          // console.log(response)
+          if(response.code == 200){
+            const messagePara = document.getElementById('message').innerHTML = "Please Enter the OTP Sent to your phone number!"
+            console.log("OTP sent")
+            state = 'verify';
+            document.getElementById('login').innerHTML = "Login";
+            var input = document.createElement("input")
+            input.type="number"
+            input.className="form-control col-lg-6 md-2";
+            input.id = "otp";
+            input.placeholder="Enter OTP"
+            container = document.getElementById("parentDiv")
+            container.appendChild(input)
+            resendOtpBut.style.visibility = "visible"
+            setTimeout(function(){ resendOtpBut.disabled = false; resendOtpBut.innerHTML = "Resend OTP"; }, 32000);
+            
+            let i = 0;
+            let interval = setInterval(() => {
+              resendOtpBut.innerHTML = 'Resend OTP in ('+(30-i)+') seconds';
+              i++;
+              if(i > 30){
+                clearInterval(interval)
+              }
+            }, 1000);
+            
+          }
+          // else {
+          //   state = "error"
+          // }
+        }
+      } else if(state == 'verify'){
+        const otp = document.getElementById('otp').value;
+        const otpResponse = await verifyOtp(userNum, otp);
+        if(otpResponse.status == 200){
+          document.cookie = `AuthToken=${otpResponse.AuthToken}; path=/`
+          location.reload();
+        } else{
+          var p = document.createElement('p');
+          p.value="Invalid OTP";
+          container = document.getElementById('parentDiv');
+          container.appendChild(p)
+        }
+      }
+    })
+
+    resendOtpBut.addEventListener('click', async(e) => {
+      resendOtpBut.disabled = true
+      resendOtpBut.innerHTML = "OTP Resent"
+      userNum = document.getElementById('userNum').value;
+      if(userNum){
+          const response = await getOtp(userNum)
+          // console.log(response)
+          if(response.code == 200){
+            const messagePara = document.getElementById('message').innerHTML = "Please Enter the OTP Resent to your phone number!"
+            console.log("OTP sent")
+            state = 'verify';
+            document.getElementById('login').innerHTML = "Login";
+            var input = document.createElement("input")
+            input.type="number"
+            input.className="form-control col-lg-6 md-2";
+            input.id = "otp";
+            input.placeholder="Otp Resent"
+            container = document.getElementById("parentDiv")
+          } else {
+            alert("login failed!\n Refresh and Try Again")
+          }
+        }
+    })
+
+    const getOtp = async(userNum) => {
+      console.log("Sending OTP to " + userNum);
+      const response = fetch('/login', {
+        method: "POST", 
+        body: JSON.stringify({
+          userNum: userNum
+        }), 
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+      .then(response => response.json())
+      
+      return response;
+    }
+
+    const verifyOtp = async(userNum, otp) => {
+      console.log("Verifying " + userNum);
+      const response = fetch('/verifyotp', {
+        method: "POST", 
+        body: JSON.stringify({
+          userNum: userNum,
+          otp: otp
+        }), 
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(response => response.json())
+      return response;
+    }
+
+    function removeCookies() {
+            var res = document.cookie;
+            var multiple = res.split(";");
+            for(var i = 0; i < multiple.length; i++) {
+               var key = multiple[i].split("=");
+               document.cookie = key[0]+" =; expires = Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            }
+         }
+
+
+    document.getElementById('logout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      removeCookies();
+      window.location="/";
+    })
+</script>

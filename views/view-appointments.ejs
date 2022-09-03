@@ -1,0 +1,110 @@
+<%- include('./common/header.ejs') %>
+</div>
+<section class="department_section layout_padding">
+    <div class="department_container">
+        <div class="container ">
+            <div class="heading_container heading_center">
+                <h2 class="mb-5">
+                    My Appointments
+                </h2>
+            </div>
+
+            <div class="new-appointment align-center flex my-3 justify-center">
+                <button type="button" class="btn btn-secondary"
+                    onclick="window.location.href='/book-appointment'"
+                >
+                    Book Another Appointment
+                </button>
+            </div>
+
+            <div class="card">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">S.No.</th>
+                        <th scope="col">Id</th>
+                        <th scope="col">Doctor Name</th>
+                        <th scope="col">Date Time</th>
+                        <th scope="col">Payment Status</th>
+                        <!-- <th scope="col">Payment</th> -->
+                        <th scope="col">Fees</th>
+                        <th scope="col">Chat</th>
+                        <th scope="col">Cancel</th>
+                        <!-- <th scope="col">Status</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <% if(code == 404) { %>
+                            <p>Login to view your Appointments</p>
+                        <% } else { %>
+                        <%  for(var i = 0; i < appointments.length; i++) { %>
+                      <tr>
+                        <th scope="row"><%= i+1 %></th>
+                        <th><%= appointments[i].appointmentId %></th>
+                        <td><%= appointments[i].doctor %></td>
+                        <td><%= appointments[i].appointmentTime %></td>
+                        <td>
+                            <% if(appointments[i].paymentStatus == false) { %>
+                                Not Done
+                            <% } else { %> Done <% } %>
+                            </td>
+                        <td>₹<%= appointments[i].fees %>/-</td>
+                        <td>
+                            <% if(appointments[i].paymentStatus == false) { %>
+                                <b><a href="/payment-page/<%= appointments[0].appointmentId %>">Pay Now</a></b>
+                            <% } else { %>
+                            <a href="#" class="btn btn-primary" id="goToChat" onclick="goToChat('<%= appointments[i].appointmentId %>')"><i class="fas fa-comments"></i></a></td>
+                            <% } %>
+                        <td><a href="#" class="btn btn-danger" id="cancelAppointment" onclick="cancelAppointment('<%= appointments[i].appointmentId %>')"><span class="badge bg-success"><i class="fas fa-arrow-circle-right"></i></span></a></td>
+                      </tr>
+                      <% } %>
+                      <% } %>
+                    </tbody>
+                  </table>
+            </div>
+            
+            <script>
+                const goToChat = async(id) => {
+                  const data = await fetch(`/chat/${id}`, {
+                    method: 'POST'
+                  }).then(t => t.json())
+                  .catch(e => {
+                    alert('Unable to fetch Chat Details because of ' + e)
+                  })
+                  console.log(data)
+                  try {
+                    chatid = data.chatInfo.chatid;
+                    console.log('chat id is: ' + chatid)
+                    var location = `/appointment-chat/${chatid}`;
+                    window.location=location
+                  } catch (error) {
+                    alert("Unable to fetch Chat Details because of " + error)
+                  }
+                }
+  
+                const cancelAppointment = async(id) => {
+                  if(confirm("Are you sure you want to cancel the appointment")){
+                    console.log("ID: " + id)
+                    fetch(`/patient/cancel-appointment/${id}`, {
+                      method: "POST"
+                    }).then(response => response.json())
+                    .then(response => {
+                      console.log(response)
+                      if(response.code == 200){
+                        alert('Appointment cancelled');
+                        location.reload()
+                      } else {
+                        alert("Failed to cancel Appointment")
+                      }
+                    })
+                  }
+                }
+              </script>
+            
+            
+        </div>
+    </div>
+</section>
+
+
+<%- include('./common/footer.ejs') %>

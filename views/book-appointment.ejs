@@ -1,0 +1,195 @@
+<%- include('./common/header.ejs') %>
+
+
+    </div>
+    <section class="contact_section layout_padding">
+        <div class="container">
+            <div class="heading_container">
+                <h2>
+                    Book New Appointment
+                </h2>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form_container contact-form">
+                        <form action="">
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <input type="text" id="name" placeholder="Your Name" value="<%= user.userProfile.name %>" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <input type="text" placeholder="Phone Number" id="phoneNumber" value="<%= user.phoneNumber %>" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="email" placeholder="Email" id="email" value = '<%= user.userProfile.email %>' />
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <select type="text" placeholder="Gender" id="gender" class="form-control" value="<%= user.userProfile.gender %>">
+                                            <option default>Gender</option>
+                                            <option id="male">Male</option>
+                                            <option id="female">Female</option>
+                                            <option id="others">Prefer Not to say</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div>
+                                        <input type="number" placeholder="Age" id="age" value="<%= user.userProfile.age %>"/>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <h5>Date & Time</h5>
+                            <div class="form-row">
+
+
+                                <div class="col-lg-6">
+                                    <div>
+                                        <input type="date" placeholder="Date" id="appointmentDate" />
+                                    </div>
+                                </div>
+
+                                <script>
+                                    var now = new Date();
+                                    var todaysDate = now.toISOString().slice(0, 10)
+                                    var weekDate = new Date(todaysDate);
+                                    weekDate.setDate(weekDate.getDate() + 7);
+                                    weekDate = weekDate.toISOString().slice(0, 10);
+                                    console.log(todaysDate)
+                                    console.log(weekDate)
+
+                                    var x = document.getElementById('appointmentDate');
+                                    x.min = todaysDate;
+                                    x.max = weekDate;
+
+
+                                </script>
+                            </div>
+                            <div class="form-row mb-3">
+                                <div class="col-lg-6">
+                                    <div>
+                                        <select name="hours" id="hours" class="form-control col-lg-6">
+                                            <% for(var i=9; i < 11; i++) { %>
+                                                <option value="<%= i+1 %>">
+                                                    <%= i+1 %> AM
+                                                </option>
+                                                <% } %>
+                                                    <option value="12">12 PM</option>
+                                                    <% for(var i=0; i < 5; i++) { %>
+                                                        <option value="<%= i+13 %>">
+                                                            <%= i+1 %> PM
+                                                        </option>
+                                                        <% } %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <select name="minutes" id="minutes" class="form-control col-lg-6">
+                                    <option value="00">00 minutes</option>
+                                    <option value="10">10 minutes</option>
+                                    <option value="20">20 minutes</option>
+                                    <option value="30">30 minutes</option>
+                                    <option value="40">40 minutes</option>
+                                    <option value="50">50 minutes</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <input type="text" disabled name="fees" id="fees" value="₹100/-">
+                            </div>
+                            <div>
+                                <input type="text" class="message-box" placeholder="Any Remarks (Optional)"
+                                    id="remarks" />
+                            </div>
+                            <div class="btn_box">
+                                <button id="book-appointment-btn">
+                                    Book Appointment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+
+        document.getElementById('book-appointment-btn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            const date = document.getElementById('appointmentDate').value;
+            const hours = document.getElementById('hours').value;
+            const minutes = document.getElementById('minutes').value;
+            const time = hours + ":" + minutes;
+            const appointmentTime = date + " " + time;
+            let bookingDetails = {
+                name: document.getElementById('name').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                email: document.getElementById('email').value,
+                gender: document.getElementById('gender').value,
+                age: document.getElementById('age').value,
+                appointmentTime,
+                remarks: document.getElementById('remarks').value,
+            }
+            console.log(bookingDetails)
+            const response = await fetch('/new-appointment', {
+                method: "POST",
+                body: JSON.stringify(bookingDetails),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            })
+                .then(response => response.json())
+                .then(response => {
+                    console.log(response)
+                    if (response.response == 201) {
+                        console.log("Automatic opening the login portal")
+                        document.getElementById('login-btn').click();
+                        document.getElementById('userNum').value = req.body.phoneNumber;
+                        state = 'verify';
+                        let messagePara = document.getElementById('message').innerHTML = "Please Enter the OTP Sent to your phone number!"
+                        document.getElementById('userNum').disabled = true;
+                        var input = document.createElement("input")
+                        input.type = "number"
+                        input.className = "form-control col-lg-6 md-2";
+                        input.id = "otp";
+                        input.placeholder = "Enter OTP"
+                        container = document.getElementById("parentDiv")
+                        container.appendChild(input)
+                        resendOtpBut.style.visibility = "visible"
+                        setTimeout(function () { resendOtpBut.disabled = false; resendOtpBut.innerHTML = "Resend OTP"; }, 32000);
+
+                        let i = 0;
+                        let interval = setInterval(() => {
+                            resendOtpBut.innerHTML = 'Resend OTP in (' + (30 - i) + ') seconds';
+                            i++;
+                            if (i > 30) {
+                                clearInterval(interval)
+                            }
+                        }, 1000);
+                    }
+                    else if (response.response == 200) {
+                        alert("appointment booked")
+                        window.location.href = '/view-appointments'
+                    }
+                    else {
+                        alert("Failed!")
+                    }
+                })
+
+        })
+    </script>
+
+
+
+    <%- include('./common/footer.ejs') %>
