@@ -7,6 +7,7 @@ const generateToken = require('./../services/generateToken')
 const generateOtp = require('../services/generateOtp')
 const { sendOTP } = require('./../services/sendOtp')
 const { detectValidJwt } = require('../services/detectValidJwt')
+const patientLogin = require('./../models/Patient/patientLogin')
 
 
 const checkLoggedIn = async(req, res) => {
@@ -142,8 +143,9 @@ const verifyOtp = async(req, res) => {
 
         if(userOtp == UserAuthOtp.otp){
             await UserAuthOtp.deleteOne({ phoneNumber})
+            // const patientLogin = await PatientLogin.findOne({ phoneNumber })
             const patientUser = await PatientUser.findOne({ phoneNumber })
-            const token = await generateToken(patientUser, 'patient');
+            const token = await generateToken(patientUser);
             return res.json({
                 code: 200, 
                 status: 200,

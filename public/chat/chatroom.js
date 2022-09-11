@@ -41,6 +41,12 @@ messageField.addEventListener("keyup", function (event) {
 });
 
 
+videoCallButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = `/video-conference/${roomid}`
+})
+
+
 socket.on('chatroom-message', (msg, sendername, time) => {
     addMessage(msg, sendername, time)
 })

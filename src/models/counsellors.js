@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const shortid = requier('shortid')
+const shortid = require('shortid')
 
 const Counsellors = new mongoose.Schema({
     id: {
@@ -9,6 +9,17 @@ const Counsellors = new mongoose.Schema({
         default: shortid.generate()
     },
     name: {
+        type: String,
+        required: true
+    },
+    gender: {
+        type: String,
+        required: true
+    },
+    dateOfBirth: {
+        type: Date,  
+    },
+    qualifications: {
         type: String,
         required: true
     },

@@ -40,6 +40,9 @@ const PatientAppointments = new mongoose.Schema({
         type: String,
         default: 'Dr Sanjay'
     },
+    doctorId: {
+        type: String, 
+    },
     patientRemarks: String,
     fees: {
         type: Number,

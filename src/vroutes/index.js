@@ -1,5 +1,7 @@
 const PatientAppointments = require('./../models/Patient/patientAppointments')
+const PatientUser = require('./../models/Patient/patientLogin')
 const PatientProfile = require('./../models/Patient/patientProfile')
+const Counsellors = require('./../models/counsellors')
 const { detectValidJwt } = require('../services/detectValidJwt');
 const { isLoggedIn } = require('../middlewares/roleValidation');
 const { getChatInfoByChatId } = require('../controllers/patientChatController');
@@ -9,6 +11,9 @@ const router = require('express').Router();
 
 router.get('/', isLoggedIn, (req, res) => {
     try {   
+        if(req.user.role == 'admin' || req.user.role == 'doctor') {
+            return res.redirect('/admin')
+        }
         return res.render('index', {
             x: 'index',
             user: req.user
@@ -21,6 +26,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
 router.get('/book-appointment', isLoggedIn, async(req, res) => {
     try {
+        const listOfDoctors = await Counsellors.find({ })
         let userProfile
         if(req.user._id){
             userProfile = await PatientProfile.findOne({ phoneNumber: req.user.phoneNumber })
@@ -34,12 +40,12 @@ router.get('/book-appointment', isLoggedIn, async(req, res) => {
         } else {
             userProfile = {
                 data: 'something',
-                
             }
             req.user.userProfile = userProfile
         }
         return res.render('book-appointment', {
             x: 'sub',
+            doctors: listOfDoctors,
             user: req.user
         })
     } catch (error) {
@@ -51,6 +57,24 @@ router.get('/book-appointment', isLoggedIn, async(req, res) => {
 
 router.post('/view-appointments', (req, res) => {
     return res.redirect('/view-appointments')
+})
+
+
+router.get('/profile/:id', async(req, res) => {
+    try {
+        const user = await PatientUser.findOne({ _id: req.params.id })
+        const doctor = await Counsellors.findOne({ phoneNumber: user.phoneNumber })
+        return res.json({
+            userType: user.role,
+            userData: doctor
+        })
+    } catch (error) {
+        console.log(error)
+        return res.redirect('/error-page', {
+            x: 'sub',
+            user: req.user
+        })
+    }
 })
 
 

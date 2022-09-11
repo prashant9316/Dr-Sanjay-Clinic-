@@ -6,6 +6,11 @@ const PatientLoginSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    role: { // User Role
+        type: String,
+        required: true,
+        default: 'patient'
+    },
     verification: { // User Verification 
         phoneNumber: {
             type: Boolean,

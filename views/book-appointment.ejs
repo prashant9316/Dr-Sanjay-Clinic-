@@ -104,6 +104,15 @@
                             </div>
 
                             <div>
+                                Choose Doctor
+                                <select name="minutes" id="minutes" class="form-control col-lg-6">
+                                    <% for (var i = 0; i < doctors.length; i++) { %>
+                                    <option value="<%= doctors[i].id %>"><%= doctors[i].name %></option>
+                                    <% } %>
+                                </select>
+                            </div>
+
+                            <div>
                                 <input type="text" disabled name="fees" id="fees" value="₹100/-">
                             </div>
                             <div>
