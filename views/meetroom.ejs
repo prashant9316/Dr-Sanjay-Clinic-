@@ -1,0 +1,85 @@
+
+<%- include('./common/header.ejs') %>
+<title>BeSwasth Live Appointment</title>
+
+<link rel="stylesheet" href="/video/style.css">
+<script src="https://kit.fontawesome.com/6510466b6c.js" crossorigin="anonymous"></script>
+<script>
+    console.log("<%= roomid %>")
+</script>
+
+<body>
+    <div class="overlay" id="overlay">
+        <div class="box">
+            <div class="head-name">Enter a Name</div>
+            <input type="text" class="name-field" placeholder="Type here.." id="name-field"></input><br>
+            <button class="continue-name">Continue</button>
+
+        </div>
+    </div>
+    <div class="container-room">
+        <div class="left-cont" id="left-cont">
+
+            <div class="video-cont" id="vcont">
+                <div class="video-box">
+                    <video class="video-frame" id="vd1" autoplay playsinline>
+                    </video>
+                    <div class="nametag" id="myname">yourname</div>
+                    <div class="mute-icon" id="mymuteicon"><i class="fas fa-microphone-slash"></i></div>
+                    <div class="video-off" id="myvideooff">Video Off</div>
+                </div>
+
+                <div class="video-box">
+                    <video class="video-frame" id="vd2" autoplay playsinline>
+                    </video>
+                    <div class="nametag" id="remotename">Not yet Joined</div>
+                    <div class="mute-icon" id="muteicon-2"><i class="fas fa-microphone-slash"></i></div>
+                    <div class="video-off" id="videooff-2">Video Off</div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="utils">
+                    <div class="audio">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="novideo">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="novideo chatBtn" id="chatBtn">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
+                    <div class="cutcall">
+                        <i class="fas fa-phone-slash"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-cont" id="right-cont">
+            <div class="head-title">
+
+                <div class="chats"><i class="fas fa-comment-alt mr-1"></i>Chats</div>
+                <div class="chats" id="chatCloseBtn"><i class="fas fa-comment-alt mr-1"></i>Meet</div>
+
+
+            </div>
+
+            <div class="chat-cont">
+
+            </div>
+            <div class="chat-input-cont">
+                <div class="ci-cont"><input type="text" class="chat-input" placeholder="Type chat here.."></div>
+                <div class="ci-send"><button class="chat-send">Send</button></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var roomInfo = "<%= roomid %>";
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/video/room.js"></script>
+    <script src="/track/track-activity-2.js"></script>
+</body>
+
+</html>

@@ -106,9 +106,10 @@ router.get('/appointment-chat/:id', isLoggedIn, async(req, res) => {
 
 router.get('/video-conference/:id', isLoggedIn, (req, res) => {
     try {
-        return res.render('video-conference', {
+        return res.render('meetroom', {
             x: 'sub',
-            user: req.user
+            user: req.user,
+            roomid: req.params.id
         })
     } catch (error) {
         return res.redirect('/error-page', {
