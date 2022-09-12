@@ -172,6 +172,7 @@ const PatientAppointmentRouter = require('./src/routes/patientAppointments')
 const PatientPaymentRouter = require('./src/routes/payments')
 const PatientChatRouter = require('./src/routes/patientChat')
 const AdminRouter = require('./src/vroutes/admin')
+const CounsellorRouter = require('./src/routes/counsellor')
 
 
 
@@ -181,6 +182,7 @@ app.use('/', PatientAppointmentRouter)
 app.use('/', PatientPaymentRouter)
 app.use('/chat', PatientChatRouter)
 app.use('/admin', AdminRouter)
+app.use('/counsellor', CounsellorRouter)
 
 
 server.listen(process.env.PORT || 5000, () => {

@@ -13,15 +13,13 @@ const Counsellors = new mongoose.Schema({
         required: true
     },
     gender: {
-        type: String,
-        required: true
+        type: String
     },
     dateOfBirth: {
         type: Date,  
     },
     qualifications: {
-        type: String,
-        required: true
+        type: String
     },
     phoneNumber: {
         type: String,
@@ -31,6 +29,7 @@ const Counsellors = new mongoose.Schema({
     fees: {
         type: Number,
         required: true,
+        default: 100
     }
 })
 
