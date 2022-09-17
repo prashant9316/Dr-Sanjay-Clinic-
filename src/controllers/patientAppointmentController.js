@@ -5,6 +5,7 @@ const UserOtp = require('./../models/userOtp')
 const { createChat } = require('./patientChatController');
 const generateOtp = require('../services/generateOtp');
 const { sendOTP } = require('../services/sendOtp');
+const Counsellors = require('../models/counsellors');
 
 const fees = 100;
 
@@ -26,7 +27,14 @@ const bookNewAppointment = async(req, res) => {
         const phoneNumber = req.body.phoneNumber;
 
         const userExist = await PatientUser.findOne({ phoneNumber })
-
+        const doctor = await Counsellors.findOne({ doctorId: req.body.doctorId })
+        if(!doctor){
+            doctorName = 'Dr Sanjay'
+            doctorId = "DSK"
+        } else {
+            doctorId = doctor.id;
+            doctorName = doctor.name
+        }
         if(userExist){
             const newPatientAppointment = new PatientAppointments({
                 patientDetails: {
@@ -36,6 +44,9 @@ const bookNewAppointment = async(req, res) => {
                     phoneNumber,
                     age: req.body.age
                 },
+                doctorId: req.body.doctorId,
+                doctor: doctorName,
+                doctorId,
                 appointmentTime: req.body.appointmentTime,
                 doctor: 'Dr Sanjay Kumar',
                 patientRemarks: req.body.remarks,

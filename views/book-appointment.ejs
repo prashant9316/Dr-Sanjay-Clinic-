@@ -104,10 +104,10 @@
                             </div>
 
                             <div>
-                                Choose Doctor
-                                <select name="minutes" id="minutes" class="form-control col-lg-6">
+                                Choose Consultant
+                                <select name="minutes" id="doctor" class="form-control col-lg-6">
                                     <% for (var i = 0; i < doctors.length; i++) { %>
-                                    <option value="<%= doctors[i].id %>"><%= doctors[i].name %></option>
+                                    <option value="<%= doctors[i].id %>" id="doctor-<%=doctors[i].id %>"><%= doctors[i].name %></option>
                                     <% } %>
                                 </select>
                             </div>
@@ -133,6 +133,13 @@
 
 
     <script>
+        var e = document.getElementById("doctor").addEventListener('change', e => {
+            console.log("Running on change")
+            var doctorId = e.value;
+            // console.log(e.selectedIndex)
+            // var doctorName = e.options[e.selectedIndex].text;
+            // console.log(doctorId, doctorName);
+        });
 
         document.getElementById('book-appointment-btn').addEventListener('click', async (e) => {
             e.preventDefault();
@@ -141,6 +148,7 @@
             const minutes = document.getElementById('minutes').value;
             const time = hours + ":" + minutes;
             const appointmentTime = date + " " + time;
+            const doctorId = document.getElementById('doctor').value;
             let bookingDetails = {
                 name: document.getElementById('name').value,
                 phoneNumber: document.getElementById('phoneNumber').value,
@@ -149,6 +157,7 @@
                 age: document.getElementById('age').value,
                 appointmentTime,
                 remarks: document.getElementById('remarks').value,
+                doctorId
             }
             console.log(bookingDetails)
             const response = await fetch('/new-appointment', {

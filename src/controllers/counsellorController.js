@@ -40,6 +40,7 @@ const createCounsellor = async(req, res) => {
             message: "New Counsellor created!"
         })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({
             error,
             code: 500

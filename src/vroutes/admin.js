@@ -66,7 +66,7 @@ router.get('/my-appointments', isDoctorOrAdmin, async(req, res) => {
 router.get('/all-doctors', isAdmin, async(req, res) => {
     try {
         let doctors = []
-        const listOfDoctors = await Counsellors.find({ })
+        const listOfDoctors = await Counsellors.find({  })
         return res.render('admin/doctors', {
             role: req.user.role,
             user: req.user,

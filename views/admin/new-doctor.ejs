@@ -11,25 +11,57 @@
     </div>
     <div class="card-body">
         <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Counsellor's Phone Number</label>
+            <label for="exampleInputEmail1">Consultant's Phone Number</label>
             <input type="number" class="form-control" id="doctorNumber"
-                placeholder="Enter Doctor's Phone Number" required>
+                placeholder="Enter Consultant's Phone Number" required>
         </div>
         <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">Counsellor's Name</label>
+            <label for="exampleInputEmail1">Consultant's Name</label>
             <input type="text" class="form-control" id="doctorName"
-                placeholder="Enter Doctor's Name" required>
+                placeholder="Enter Consultant's Name" required>
         </div>
     </div>
     <div class="card-footer">
-        <button type="submit" class="btn btn-primary" id="book-appointment">Register New Counsellor</button>
+        <button type="submit" class="btn btn-primary" id="book-appointment">Register New Consultant</button>
     </div>
 </div>
 
 
 <script>
-    document.getElementById('book-appointment', async(e) => {
-        
+    document.getElementById('book-appointment').addEventListener('click', async(e) => {
+        e.preventDefault();
+        const phoneNumber = document.getElementById('doctorNumber').value;
+        const name = document.getElementById('doctorName').value;
+        if(phoneNumber.length != 10){
+            alert("Invalid Phone Number");
+            return;
+        }
+
+        if(name.length <= 4 || typeof(name) == null || typeof(name) == undefined || name == ' '){
+            alert("Invalid Name");
+            return;
+        }
+    
+        const response = await fetch('/counsellor/new-counsellor', {
+            method: "POST",
+            body: JSON.stringify({
+                phoneNumber,
+                name
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.code == 200){
+                alert("New Consultant Registered!")
+                window.location.href = '/admin/all-doctors'
+            } else {
+                alert("Server Error occured!")
+                alert(res.error)
+            }
+        })
     })
 </script>
 

@@ -5,7 +5,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">View All Doctors</h3>
+        <h3 class="card-title">View All Consultant</h3>
 
         <div class="card-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -30,6 +30,7 @@
               <th>Doctor</th>
               <th>Number</th>
               <th>Fees</th>
+              <th>Role</th>
               <!-- <th></th> -->
               <!-- <th>Update</th> -->
             </tr>
@@ -53,20 +54,15 @@
             <% for(var i=0; i < doctors.length; i++) { %>
               <tr>
                 <td><%= i+1 %></td>
-                <!-- <td>...<%= appointments[i].appointmentId.toString().slice(20,24) %></td> -->
-                <!-- <td><%= appointments[i].speciality %></td> -->
+                <!-- <td><%= doctors[i].speciality %></td> -->
                 <td><%= doctors[i].id %></td>
-                <td><%= doctors[i].name %>, <%= appointments[i].patientDetails.age %>yr old, <%= appointments[i].patientDetails.gender %></td>
-                <td><%= appointments[i].time.toLocaleString('en-US') %></td>
-                <td><a href="#" class="btn btn-primary" id="goToChat" onclick="goToChat('<%= appointments[i].appointmentId %>')"><i class="fas fa-comments"></i></a></td></td>
-                <!-- <td><span class="tag tag-success"><%= appointments[i].paymentStatus %></span></td> -->
-                <td><%= appointments[i].fees %></td>
-                <td>
-                    <% if(appointments[i].paymentStatus == false) { %>
-                        Not Done
-                    <% } else { %> Done <% } %>
-                </td>
-                <!-- <td><a href="/admin/udpate-appointment/<%= appointments[i].appointmentId %>"><span class="badge bg-success"><i class="fas fa-arrow-circle-right"></i></span></a></td> -->
+                <td><%= doctors[i].name %></td>
+                <td><%= doctors[i].phoneNumber %></td>
+                <!-- <td><a href="#" class="btn btn-primary" id="goToChat" onclick="goToChat('<%= doctors[i].appointmentId %>')"><i class="fas fa-comments"></i></a></td></td> -->
+                <!-- <td><span class="tag tag-success"><%= doctors[i].paymentStatus %></span></td> -->
+                <td><%= doctors[i].fees %></td>
+                <td><%= doctors[i].role %></td>
+                <!-- <td><a href="/admin/udpate-appointment/<%= doctors[i].appointmentId %>"><span class="badge bg-success"><i class="fas fa-arrow-circle-right"></i></span></a></td> -->
               </tr>
             <% } %>
           </tbody>
